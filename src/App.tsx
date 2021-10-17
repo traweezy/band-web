@@ -7,7 +7,7 @@ const App = () => (
       <div className="mb-10 text-6xl">[Name Redacted]</div>
       <div className="mb-5 text-4xl">under construction</div>
       <div>
-        <img className="rounded-md" src={Placeholder} alt="placeholder" />
+        <img className="md:rounded-md" src={Placeholder} alt="placeholder" />
       </div>
     </div>
   </div>
