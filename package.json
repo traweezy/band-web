@@ -25,7 +25,7 @@
     "test:lint": "eslint './src/**/*.{ts,tsx}'",
     "fix:lint": "eslint './src/**/*.{ts,tsx}' --fix"
   },
-  "homepage": "https://traweezy.github.io/band-web/",
+  "homepage": "https://envoys.band/",
   "eslintConfig": {
     "extends": [
       "react-app",
