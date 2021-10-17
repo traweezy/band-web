@@ -52,7 +52,7 @@ jobs:
       matrix:
         node-version: [16.11.1]
 
-    needs: test
+    needs: build
 
     steps:
       - name: Checkout
