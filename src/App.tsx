@@ -2,10 +2,10 @@ import { memo } from 'react';
 import Placeholder from './assets/placeholder.gif';
 
 const App = () => (
-  <div className="h-full flex items-center w-full">
+  <div className="flex items-center w-full h-full">
     <div className="mx-auto text-center">
-      <div className="text-6xl mb-10">[Name Redacted]</div>
-      <div className="text-4xl mb-5">under construction</div>
+      <div className="mb-10 text-6xl">[Name Redacted]</div>
+      <div className="mb-5 text-4xl">under construction</div>
       <div>
         <img className="rounded-md" src={Placeholder} alt="placeholder" />
       </div>
