@@ -5,6 +5,9 @@ module.exports = {
     fontFamily: {
       'metal-mania': ['Metal Mania', 'sans-serif'],
     },
+    extend: {
+      colors: { black: '#333' },
+    },
   },
   variants: {
     extend: {},

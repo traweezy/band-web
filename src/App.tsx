@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { memo } from 'react';
+import Placeholder from './assets/placeholder.gif';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Edit src/App.tsx and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => (
+  <div className="h-full flex items-center w-full">
+    <div className="mx-auto">
+      <div className="text-4xl text-center">
+        [Name Redacted]&apos;s website
+        <br />
+        under construction
+        <img src={Placeholder} alt="placeholder" />
+      </div>
     </div>
-  );
-}
+  </div>
+);
 
-export default App;
+export default memo(App);
