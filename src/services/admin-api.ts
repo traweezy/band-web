@@ -19,6 +19,7 @@ class AdminApi extends HttpClient {
     const response = await this.instance.post<LoginResult>(
       `/admin/login`,
       payload,
+      { headers: { authorization: `Bearer ${window.localStorage.jwt_token}` } },
     );
     return response.data.data;
   };
@@ -26,6 +27,7 @@ class AdminApi extends HttpClient {
   public getRecordings = async (): Promise<Recording[]> => {
     const response = await this.instance.get<QueryResult<Recording>>(
       `/content-manager/collection-types/api::song.song?pageSize=1000&sort=recordedAt:desc`,
+      { headers: { authorization: `Bearer ${window.localStorage.jwt_token}` } },
     );
 
     return response.data.results;

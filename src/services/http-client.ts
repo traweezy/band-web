@@ -6,7 +6,6 @@ abstract class HttpClient {
   public constructor(baseURL: string) {
     this.instance = axios.create({
       baseURL,
-      headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
     });
 
     this._initializeResponseInterceptor();
