@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwind/recommended",
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint", "jest", "tailwind", "prettier"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-console": "warn",
+    "class-methods-use-this": ["off"],
+    "no-debugger": "off",
+    "no-underscore-dangle": "off",
+    "import/no-named-as-default": "off",
+    "no-restricted-syntax": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
+}

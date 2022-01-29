@@ -1,0 +1,7 @@
+{
+  "eslint.options": {
+    "config.file": "/home/traweezy/projects/envoys-web/.eslintrc"
+  },
+  "prettier.configPath": "/home/traweezy/projects/envoys-web/.prettierrc",
+  "workbench.colorTheme": "Night Owl"
+}
