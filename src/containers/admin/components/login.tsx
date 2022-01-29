@@ -25,7 +25,7 @@ const LoginDialog = styled(Dialog)`
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<any, any>;
+    children: React.ReactElement<unknown, unknown>;
   },
   ref: React.Ref<unknown>,
 ) {

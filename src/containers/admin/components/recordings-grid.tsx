@@ -61,7 +61,7 @@ const columns = [
     field: 'File.size',
     headerName: 'File Size',
     width: 150,
-    renderCell: (params: any) => params.value + ' KB',
+    renderCell: (params: { value: string }) => params.value + ' KB',
   },
 ];
 
