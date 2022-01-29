@@ -1,23 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.89defc04.chunk.css",
-    "main.js": "/static/js/main.0fbea9e0.chunk.js",
-    "main.js.map": "/static/js/main.0fbea9e0.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.2ddc8277.js",
-    "runtime-main.js.map": "/static/js/runtime-main.2ddc8277.js.map",
-    "static/js/2.de4ae5f1.chunk.js": "/static/js/2.de4ae5f1.chunk.js",
-    "static/js/2.de4ae5f1.chunk.js.map": "/static/js/2.de4ae5f1.chunk.js.map",
-    "static/js/3.09856323.chunk.js": "/static/js/3.09856323.chunk.js",
-    "static/js/3.09856323.chunk.js.map": "/static/js/3.09856323.chunk.js.map",
+    "main.css": "/static/css/main.a2765d44.css",
+    "main.js": "/static/js/main.3a900aa6.js",
+    "static/js/998.4819cfde.chunk.js": "/static/js/998.4819cfde.chunk.js",
+    "static/media/band-logo.png": "/static/media/band-logo.e843705df37bae1c7eac.png",
     "index.html": "/index.html",
-    "static/css/main.89defc04.chunk.css.map": "/static/css/main.89defc04.chunk.css.map",
-    "static/js/2.de4ae5f1.chunk.js.LICENSE.txt": "/static/js/2.de4ae5f1.chunk.js.LICENSE.txt",
-    "static/media/placeholder.a3f84903.gif": "/static/media/placeholder.a3f84903.gif"
+    "main.a2765d44.css.map": "/static/css/main.a2765d44.css.map",
+    "main.3a900aa6.js.map": "/static/js/main.3a900aa6.js.map",
+    "998.4819cfde.chunk.js.map": "/static/js/998.4819cfde.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.2ddc8277.js",
-    "static/js/2.de4ae5f1.chunk.js",
-    "static/css/main.89defc04.chunk.css",
-    "static/js/main.0fbea9e0.chunk.js"
+    "static/css/main.a2765d44.css",
+    "static/js/main.3a900aa6.js"
   ]
 }
