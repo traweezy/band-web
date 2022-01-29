@@ -24,7 +24,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - run: |
-          pnpm ci
           pnpm run build
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
@@ -71,7 +70,6 @@ jobs:
 
       - name: Install and Build
         run: |
-          pnpm ci
           pnpm run build
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
