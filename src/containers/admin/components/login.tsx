@@ -59,13 +59,15 @@ const Login: React.FC<LoginProps> = ({ show }) => {
   const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
-    try {
-      const res = await AdminApiClient.postLogin({ email, password });
-      writeStorage('jwt_token', res.token);
-      setLoginState(LoginState.SUCCESS);
-      navigate('/admin/recordings');
-    } catch (error) {
-      setLoginState(LoginState.ERROR);
+    if (email && password) {
+      try {
+        const res = await AdminApiClient.postLogin({ email, password });
+        writeStorage('jwt_token', res.token);
+        setLoginState(LoginState.SUCCESS);
+        navigate('/admin/recordings');
+      } catch (error) {
+        setLoginState(LoginState.ERROR);
+      }
     }
   };
 
@@ -84,8 +86,9 @@ const Login: React.FC<LoginProps> = ({ show }) => {
           handleSubmit();
         }
       });
-  }, [loginState]);
+  }, [loginState, email, password]);
 
+  console.log(email, password);
   return (
     <LoginDialog
       open={show}
@@ -94,9 +97,7 @@ const Login: React.FC<LoginProps> = ({ show }) => {
       TransitionComponent={Transition}
       keepMounted
     >
-      <DialogTitle>
-        <Typography variant="h4">Login</Typography>
-      </DialogTitle>
+      <DialogTitle sx={{ fontSize: 36 }}>Login</DialogTitle>
       <DialogContent>
         <Stack
           component="form"
@@ -120,6 +121,7 @@ const Login: React.FC<LoginProps> = ({ show }) => {
               setEmail(e.target.value)
             }
             error={loginState === LoginState.ERROR}
+            sx={{ marginBottom: 2 }}
           />
           <TextField
             required
