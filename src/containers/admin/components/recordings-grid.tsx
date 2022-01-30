@@ -5,7 +5,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
-import { saveAs } from 'file-saver';
 import ReactAudioPlayer from 'react-audio-player';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
@@ -62,13 +61,12 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
           disabled={!props.selected}
           color="primary"
           onClick={() => {
-            // const a = document.createElement('a');
-            // a.href = props.selected.File.url;
-            // a.target = '_blank';
-            // a.setAttribute('download', props.selected.Title);
-            // a.click();
-            // document.body.removeChild(a);
-            saveAs(props.selected.File.url, props.selected.Title);
+            const a = document.createElement('a');
+            a.href = props.selected.File.url;
+            a.target = '_blank';
+            a.setAttribute('download', props.selected.Title);
+            a.click();
+            document.body.removeChild(a);
           }}
         >
           <DownloadIcon />
