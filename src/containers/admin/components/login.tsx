@@ -12,7 +12,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import { styled } from '@mui/material/styles';
 import Slide from '@mui/material/Slide';
@@ -88,7 +87,6 @@ const Login: React.FC<LoginProps> = ({ show }) => {
       });
   }, [loginState, email, password]);
 
-  console.log(email, password);
   return (
     <LoginDialog
       open={show}
