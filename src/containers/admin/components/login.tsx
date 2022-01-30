@@ -1,4 +1,5 @@
 import React, { useState, FormEvent, JSXElementConstructor } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -47,6 +48,7 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ show }) => {
+  const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginState>(LoginState.READY);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +58,7 @@ const Login: React.FC<LoginProps> = ({ show }) => {
       const res = await AdminApiClient.postLogin({ email, password });
       writeStorage('jwt_token', res.token);
       setLoginState(LoginState.SUCCESS);
+      navigate('/admin/recordings');
     } catch (error) {
       setLoginState(LoginState.ERROR);
     }

@@ -33,6 +33,15 @@ class AdminApi extends HttpClient {
     return response.data.results;
   };
 
+  public getTabs = async (): Promise<Tab[]> => {
+    const response = await this.instance.get<QueryResult<Tab>>(
+      `/content-manager/collection-types/api::tab.tab?pageSize=1000&sort=updatedAt:desc`,
+      { headers: { authorization: `Bearer ${window.localStorage.jwt_token}` } },
+    );
+
+    return response.data.results;
+  };
+
   //   public getCharacters = async (): Promise<PickedCharacter[]> => {
   //     const response = await this.instance.get<QueryResult<PickedCharacter>>(
   //       `/character`,

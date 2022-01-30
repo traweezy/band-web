@@ -1,5 +1,13 @@
 declare module 'jwt-valid';
-declare module '@mui/x-data-grid';
-declare module '@mui/x-data-grid-generator';
 declare module 'flat';
-declare module 'react-howler';
+declare module 'react-pdf';
+declare module 'file-saver';
+declare module '@react-pdf-viewer/default-layout';
+declare module 'use-mobile-detect-hook';
+
+interface MobileDetector {
+  isMobile: () => boolean;
+  isDesktop: () => boolean;
+  isAndroid: () => boolean;
+  isIos: () => boolean;
+}

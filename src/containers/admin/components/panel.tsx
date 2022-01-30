@@ -11,25 +11,72 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import UploadIcon from '@mui/icons-material/Upload';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
-import { styled } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import MenuIcon from '@mui/icons-material/Menu';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import { styled, useTheme } from '@mui/material/styles';
+import useMobileDetect from 'use-mobile-detect-hook';
+import { useLocation, Link } from 'react-router-dom';
 import BandLogo from '../../../assets/band-logo.png';
 import RecordingsGrid from './recordings-grid';
+import TabsGrid from './tabs-grid';
 
 const drawerWidth = 200;
 
-const BandLogoContainer = styled('img')`
-  height: 100%;
-  width: 105px;
-  margin-left: 16px;
-`;
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+}));
+
+type SideNavigationRoutePath = `/admin/${'recordings' | 'tabs'}`;
+
+type SideNavigationRoutes = {
+  [key in SideNavigationRoutePath]: {
+    name: string;
+    path: SideNavigationRoutePath;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Icon: any;
+    Component: React.ComponentType<unknown>;
+  };
+};
+
+const sideNavigationRoutes: SideNavigationRoutes = {
+  '/admin/recordings': {
+    name: 'Recordings',
+    path: '/admin/recordings',
+    Icon: LibraryMusicIcon,
+    Component: RecordingsGrid,
+  },
+  '/admin/tabs': {
+    name: 'Tabs',
+    path: '/admin/tabs',
+    Icon: TextSnippetIcon,
+    Component: TabsGrid,
+  },
+};
 
 const Panel = () => {
+  const { isMobile }: MobileDetector = useMobileDetect();
+  const location = useLocation();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const [open, setOpen] = React.useState(false);
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const { Component } =
+    sideNavigationRoutes[location.pathname as SideNavigationRoutePath];
   return (
     <Box sx={{ display: 'flex', height: 'calc(100vh - 77px)' }}>
       <CssBaseline />
@@ -37,11 +84,37 @@ const Panel = () => {
         position="fixed"
         sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar disableGutters>
-          <BandLogoContainer src={BandLogo} alt="Band Logo" />
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Link to="/">
+            <img
+              src={BandLogo}
+              alt="Band Logo"
+              style={{
+                height: '100%',
+                width: ' 94px',
+              }}
+            />
+          </Link>
+
+          {isMobile() && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              sx={{ ...(open && isMobile() && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
-      {!matches && (
+      {!isMobile() ? (
         <Drawer
           variant="permanent"
           sx={{
@@ -65,34 +138,107 @@ const Panel = () => {
             </List>
             <Divider />
             <List>
-              <ListItem button>
+              {Object.values(sideNavigationRoutes).map(
+                ({ name, Icon, path }) => (
+                  <Link to={path} key={name}>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <Icon
+                          color={
+                            location.pathname === path ? 'primary' : undefined
+                          }
+                        />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        primary={name}
+                        sx={{
+                          color:
+                            location.pathname === path
+                              ? 'primary.main'
+                              : 'white',
+                        }}
+                      />
+                    </ListItem>
+                  </Link>
+                ),
+              )}
+            </List>
+          </Box>
+        </Drawer>
+      ) : (
+        <Drawer
+          sx={{
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+            },
+            zIndex: theme => theme.zIndex.drawer + 2,
+          }}
+          variant="persistent"
+          anchor="right"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <Box sx={{ overflow: 'auto' }}>
+            <List>
+              <ListItem button disabled>
                 <ListItemIcon>
-                  <LibraryMusicIcon />
+                  <UploadIcon />
                 </ListItemIcon>
-                <ListItemText primary="Recordings" />
+                <ListItemText primary="Upload" />
               </ListItem>
+            </List>
+            <Divider />
+            <List>
+              {Object.values(sideNavigationRoutes).map(
+                ({ name, Icon, path }) => (
+                  <Link to={path} key={name}>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <Icon
+                          color={
+                            location.pathname === path ? 'primary' : undefined
+                          }
+                        />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        primary={name}
+                        sx={{
+                          color:
+                            location.pathname === path
+                              ? 'primary.main'
+                              : 'white',
+                        }}
+                      />
+                    </ListItem>
+                  </Link>
+                ),
+              )}
             </List>
           </Box>
         </Drawer>
       )}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: isMobile() ? 0 : 3 }}>
         <Toolbar />
-        <Paper elevation={3} sx={{ height: '100%' }}>
-          <RecordingsGrid />
+        <Paper
+          elevation={3}
+          sx={{
+            height: isMobile() ? 'calc(100vh - 56px)' : '100%',
+          }}
+        >
+          <Component />
         </Paper>
-        {/* <DataGrid
-          {...data}
-          components={{
-            Toolbar: GridToolbar,
-          }}
-          loading={loading}
-          checkboxSelection
-          disableSelectionOnClick
-          initialState={{
-            ...data.initialState,
-            pinnedColumns: { left: ['__check__', 'desk'] },
-          }}
-        /> */}
       </Box>
     </Box>
   );

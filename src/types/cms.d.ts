@@ -33,6 +33,21 @@ interface Recording {
   updatedBy: User;
 }
 
+interface Tab {
+  id: number;
+  Title: string;
+  version: number;
+  instrument: string;
+  Author: string;
+  recordedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  File: File;
+  createdBy: User;
+  updatedBy: User;
+}
+
 interface File {
   id: number;
   name: string;

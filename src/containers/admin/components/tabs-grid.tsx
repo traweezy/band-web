@@ -4,9 +4,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+
 import IconButton from '@mui/material/IconButton';
-import { saveAs } from 'file-saver';
-import ReactAudioPlayer from 'react-audio-player';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 
@@ -43,32 +42,20 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
         sx={{
           p: 1,
           float: 'right',
-          width: '100%',
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        <ReactAudioPlayer
-          src={props.selected?.File?.url ?? ''}
-          controls
-          style={{
-            width: '100%',
-            background: '#C60C31',
-            borderRadius: '4px',
-          }}
-        />
-
         <IconButton
           disabled={!props.selected}
           color="primary"
           onClick={() => {
-            // const a = document.createElement('a');
-            // a.href = props.selected.File.url;
-            // a.target = '_blank';
-            // a.setAttribute('download', props.selected.Title);
-            // a.click();
-            // document.body.removeChild(a);
-            saveAs(props.selected.File.url, props.selected.Title);
+            const a = document.createElement('a');
+            a.href = props.selected.File.url;
+            a.setAttribute('download', props.selected.File.url);
+            a.setAttribute('target', '_blank');
+            a.click();
+            document.body.removeChild(a);
           }}
         >
           <DownloadIcon />
@@ -91,7 +78,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 
 const columns: GridColDef[] = [
   { field: 'Title', headerName: 'Title', width: 200 },
-  { field: 'recordedAt', headerName: 'Recorded At', width: 150 },
+  { field: 'Instrument', headerName: 'Instrument', width: 150 },
+  { field: 'Author', headerName: 'Author', width: 150 },
+  { field: 'Version', headerName: 'Version', width: 150 },
   { field: 'File.mime', headerName: 'File Type', width: 150 },
   { field: 'File.provider', headerName: 'File Provider', width: 150 },
   {
@@ -102,12 +91,12 @@ const columns: GridColDef[] = [
   },
 ];
 
-const RecordingGrid = () => (
+const TabsGrid = () => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
-    getData={AdminApiClient.getRecordings}
+    getData={AdminApiClient.getTabs}
   />
 );
 
-export default RecordingGrid;
+export default TabsGrid;
