@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import jwtValid from 'jwt-valid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocalStorage } from '@rehooks/local-storage';
@@ -42,6 +43,15 @@ const Admin = () => {
       setIsValid(true);
     }
   }, [jwtToken]);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.pathname === '/admin') {
+      navigate('/admin/recordings');
+    }
+  }, [jwtToken]);
+
   return (
     <ThemeProvider theme={theme}>
       <div className="font-metal-mania">

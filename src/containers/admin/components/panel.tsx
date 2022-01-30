@@ -75,7 +75,7 @@ const Panel = () => {
     setOpen(false);
   };
 
-  const { Component } =
+  const route =
     sideNavigationRoutes[location.pathname as SideNavigationRoutePath];
   return (
     <Box sx={{ display: 'flex', height: 'calc(100vh - 77px)' }}>
@@ -237,7 +237,7 @@ const Panel = () => {
             height: isMobile() ? 'calc(100vh - 56px)' : '100%',
           }}
         >
-          <Component />
+          {route ? <route.Component /> : null}
         </Paper>
       </Box>
     </Box>

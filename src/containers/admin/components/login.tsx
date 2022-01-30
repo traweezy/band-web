@@ -1,4 +1,9 @@
-import React, { useState, FormEvent, JSXElementConstructor } from 'react';
+import React, {
+  useState,
+  FormEvent,
+  JSXElementConstructor,
+  useEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -64,6 +69,23 @@ const Login: React.FC<LoginProps> = ({ show }) => {
     }
   };
 
+  useEffect(() => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        handleSubmit();
+      }
+    });
+
+    return () =>
+      document.removeEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          handleSubmit();
+        }
+      });
+  }, [loginState]);
+
   return (
     <LoginDialog
       open={show}
@@ -79,7 +101,6 @@ const Login: React.FC<LoginProps> = ({ show }) => {
         <Stack
           component="form"
           noValidate
-          autoComplete="off"
           onSubmit={(e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             handleSubmit();
@@ -89,7 +110,7 @@ const Login: React.FC<LoginProps> = ({ show }) => {
             required
             autoFocus
             margin="dense"
-            id="name"
+            id="email"
             label="Email Address"
             type="email"
             fullWidth
@@ -104,7 +125,7 @@ const Login: React.FC<LoginProps> = ({ show }) => {
             required
             autoFocus
             margin="dense"
-            id="name"
+            id="password"
             label="Password"
             type="password"
             fullWidth
