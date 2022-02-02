@@ -51,7 +51,15 @@ const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
           recordingGridState === GridState.INITIAL
         }
         rows={data.map(flatten)}
-        columns={columns}
+        columns={
+          !isMobile()
+            ? columns.map(column => {
+                column.width = undefined;
+                column.flex = 1;
+                return column;
+              })
+            : columns
+        }
         onSelectionModelChange={newSelectionModel => {
           const [index] = newSelectionModel;
           const found = data.find(({ id }) => id === index);

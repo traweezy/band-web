@@ -48,6 +48,20 @@ interface Tab {
   updatedBy: User;
 }
 
+interface Lyrics {
+  id: number;
+  Title: string;
+  version: number;
+  Author: string;
+  recordedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  File: File;
+  createdBy: User;
+  updatedBy: User;
+}
+
 interface File {
   id: number;
   name: string;

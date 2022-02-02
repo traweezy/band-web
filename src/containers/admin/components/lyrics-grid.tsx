@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { GridColDef } from '@mui/x-data-grid';
 import DownloadIcon from '@mui/icons-material/Download';
-import PreviewIcon from '@mui/icons-material/Preview';
 import ShareIcon from '@mui/icons-material/Share';
+import PreviewIcon from '@mui/icons-material/Preview';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
@@ -65,7 +65,6 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
         >
           <PreviewIcon />
         </IconButton>
-
         <IconButton
           disabled={!props.selected}
           color="primary"
@@ -83,7 +82,6 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 
 const columns: GridColDef[] = [
   { field: 'Title', headerName: 'Title', width: 200 },
-  { field: 'Instrument', headerName: 'Instrument', width: 150 },
   { field: 'Author', headerName: 'Author', width: 150 },
   { field: 'Version', headerName: 'Version', width: 150 },
   { field: 'File.mime', headerName: 'File Type', width: 150 },
@@ -100,7 +98,7 @@ const TabsGrid = () => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
-    getData={AdminApiClient.getTabs}
+    getData={AdminApiClient.getLyrics}
   />
 );
 

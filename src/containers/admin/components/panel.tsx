@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import MenuIcon from '@mui/icons-material/Menu';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import { styled, useTheme } from '@mui/material/styles';
@@ -23,6 +24,8 @@ import { useLocation, Link } from 'react-router-dom';
 import BandLogo from '../../../assets/band-logo.png';
 import RecordingsGrid from './recordings-grid';
 import TabsGrid from './tabs-grid';
+import LyricsGrid from './lyrics-grid';
+import { AspectRatio } from 'react-aspect-ratio';
 
 const drawerWidth = 200;
 
@@ -34,7 +37,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-type SideNavigationRoutePath = `/admin/${'recordings' | 'tabs'}`;
+type SideNavigationRoutePath = `/admin/${'recordings' | 'tabs' | 'lyrics'}`;
 
 type SideNavigationRoutes = {
   [key in SideNavigationRoutePath]: {
@@ -58,6 +61,12 @@ const sideNavigationRoutes: SideNavigationRoutes = {
     path: '/admin/tabs',
     Icon: TextSnippetIcon,
     Component: TabsGrid,
+  },
+  '/admin/lyrics': {
+    name: 'Lyrics',
+    path: '/admin/lyrics',
+    Icon: NoteAltIcon,
+    Component: LyricsGrid,
   },
 };
 
@@ -91,14 +100,15 @@ const Panel = () => {
           }}
         >
           <Link to="/">
-            <img
-              src={BandLogo}
-              alt="Band Logo"
-              style={{
-                height: '100%',
-                width: ' 94px',
-              }}
-            />
+            <AspectRatio ratio="3/4">
+              <img
+                src={BandLogo}
+                alt="Band Logo"
+                style={{
+                  width: ' 94px',
+                }}
+              />
+            </AspectRatio>
           </Link>
 
           {isMobile() && (

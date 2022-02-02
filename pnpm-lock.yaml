@@ -11,6 +11,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.16.1
   '@testing-library/react': ^12.1.2
   '@testing-library/user-event': ^13.5.0
+  '@types/file-saver': ^2.0.5
   '@types/jest': ^27.4.0
   '@types/node': ^16.11.21
   '@types/react': ^17.0.38
@@ -19,6 +20,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
   axios: ^0.25.0
+  downloadjs: ^1.4.7
   eslint: '7'
   eslint-config-airbnb-typescript: ^16.1.0
   eslint-config-prettier: ^8.3.0
@@ -26,16 +28,20 @@ specifiers:
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-react-hooks: ^4.3.0
   eslint-plugin-tailwind: ^0.2.1
+  file-saver: ^2.0.5
   flat: ^5.0.2
   install: ^0.13.0
   jwt-valid: ^1.1.0
   prettier: ^2.5.1
   react: ^17.0.2
+  react-aspect-ratio: ^1.0.50
   react-audio-player: ^0.17.0
   react-dom: ^17.0.2
   react-howler: ^5.2.0
   react-router-dom: '6'
   react-scripts: 5.0.0
+  react-toastify: ^8.1.1
+  save-file: ^2.3.1
   tailwindcss: ^3.0.18
   typescript: ^4.5.5
   use-mobile-detect-hook: ^1.0.4
@@ -53,20 +59,25 @@ dependencies:
   '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
   '@testing-library/user-event': 13.5.0
   axios: 0.25.0
+  downloadjs: 1.4.7
   flat: 5.0.2
   install: 0.13.0
   jwt-valid: 1.1.0
   react: 17.0.2
+  react-aspect-ratio: 1.0.50_react@17.0.2
   react-audio-player: 0.17.0_react-dom@17.0.2+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-howler: 5.2.0
   react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
   react-scripts: 5.0.0_react@17.0.2+typescript@4.5.5
+  react-toastify: 8.1.1_react-dom@17.0.2+react@17.0.2
+  save-file: 2.3.1
   typescript: 4.5.5
   use-mobile-detect-hook: 1.0.4_react@17.0.2
   web-vitals: 2.1.4
 
 devDependencies:
+  '@types/file-saver': 2.0.5
   '@types/jest': 27.4.0
   '@types/node': 16.11.21
   '@types/react': 17.0.38
@@ -81,6 +92,7 @@ devDependencies:
   eslint-plugin-prettier: 4.0.0_6e6a25a49a944db0fa38418c3ba4bc86
   eslint-plugin-react-hooks: 4.3.0_eslint@7.32.0
   eslint-plugin-tailwind: 0.2.1_eslint@7.32.0
+  file-saver: 2.0.5
   prettier: 2.5.1
   tailwindcss: 3.0.18
 
@@ -2479,6 +2491,10 @@ packages:
       '@types/serve-static': 1.13.10
     dev: false
 
+  /@types/file-saver/2.0.5:
+    resolution: {integrity: sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ==}
+    dev: true
+
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
@@ -3301,6 +3317,10 @@ packages:
   /at-least-node/1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
+    dev: false
+
+  /atob-lite/2.0.0:
+    resolution: {integrity: sha1-D+9a1G8b16hQLGVyfwNn1e5D1pY=}
     dev: false
 
   /atob/2.1.2:
@@ -4517,6 +4537,15 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
+  /downloadjs/1.4.7:
+    resolution: {integrity: sha1-9p+W+UDg0FU9rCkROYZaPNAQHjw=}
+    dev: false
+
+  /dtype/2.0.0:
+    resolution: {integrity: sha1-zQUjI84GFETs0uj1dI9popvihDQ=}
+    engines: {node: '>= 0.8.0'}
+    dev: false
+
   /duplexer/0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: false
@@ -5395,6 +5424,9 @@ packages:
       webpack: 5.67.0
     dev: false
 
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+
   /filelist/1.0.2:
     resolution: {integrity: sha512-z7O0IS8Plc39rTCq6i6iHxk43duYOn8uFJiWSewIq0Bww1RNybVHSCjahmcC87ZqAm4OTvFzlzeGu3XAzG1ctQ==}
     dependencies:
@@ -5495,6 +5527,12 @@ packages:
 
   /flatted/3.2.5:
     resolution: {integrity: sha512-WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==}
+
+  /flatten-vertex-data/1.0.2:
+    resolution: {integrity: sha512-BvCBFK2NZqerFTdMDgqfHBwxYWnxeCkwONsw6PvBMcUXqo8U/KDWwmXhqx1x2kLIg7DqIsJfOaJFOmlua3Lxuw==}
+    dependencies:
+      dtype: 2.0.0
+    dev: false
 
   /follow-redirects/1.14.7:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -6074,6 +6112,10 @@ packages:
   /is-arrayish/0.2.1:
     resolution: {integrity: sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=}
 
+  /is-base64/0.1.0:
+    resolution: {integrity: sha512-WRRyllsGXJM7ZN7gPTCCQ/6wNPTRDwiWdPK66l5sJzcU/oOzcIcRRf0Rux8bkpox/1yjt0F6VJRsQOIG2qz5sg==}
+    dev: false
+
   /is-bigint/1.0.4:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
     dependencies:
@@ -6085,12 +6127,27 @@ packages:
     dependencies:
       binary-extensions: 2.2.0
 
+  /is-blob/1.0.0:
+    resolution: {integrity: sha1-o9fZb+HD/wZex84nwsIea6ksGDI=}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /is-blob/2.1.0:
+    resolution: {integrity: sha512-SZ/fTft5eUhQM6oF/ZaASFDEdbFVe89Imltn9uZr03wdKMcWNVYSMjQPFtg05QuNkt5l5c135ElvXEQG0rk4tw==}
+    engines: {node: '>=6'}
+    dev: false
+
   /is-boolean-object/1.1.2:
     resolution: {integrity: sha512-gDYaKHJmnj4aWxyj6YHyXVpdQawtVLHU5cb+eztPGczf6cjuTdwve5ZIEfgXqH4e57An1D1AKf8CZ3kYrQRqYA==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
       has-tostringtag: 1.0.0
+
+  /is-buffer/2.0.5:
+    resolution: {integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==}
+    engines: {node: '>=4'}
+    dev: false
 
   /is-callable/1.2.4:
     resolution: {integrity: sha512-nsuwtxZfMX67Oryl9LCQ+upnC0Z0BgpwntpS89m1H/TLF0zNfzfLMV/9Wa/6MZsj0acpEjAO0KF1xT6ZdLl95w==}
@@ -8519,6 +8576,14 @@ packages:
       whatwg-fetch: 3.6.2
     dev: false
 
+  /react-aspect-ratio/1.0.50_react@17.0.2:
+    resolution: {integrity: sha512-AEAPqmPMLlcuhp4t3z6crb+gGckc0lFPYNL/654a6rrcblcvZGtgh+VpcUbC7AwIE+MT8u5uGeJ7shx0hUOKSw==}
+    peerDependencies:
+      react: ^0.14.7 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /react-audio-player/0.17.0_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-aCZgusPxA9HK7rLZcTdhTbBH9l6do9vn3NorgoDZRxRxJlOy9uZWzPaKjd7QdcuP2vXpxGA/61JMnnOEY7NXeA==}
     peerDependencies:
@@ -8714,6 +8779,17 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
+    dev: false
+
+  /react-toastify/8.1.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-KQa+j+JHjy69xpPYheaWUq3SjVw1sV2D7/QsXW6Tpo2x9HhUCvASezAMYDmLhfAYoSnaXUVnTNFAgZQA75SExQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 1.1.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /react-transition-group/4.4.2_react-dom@17.0.2+react@17.0.2:
@@ -9035,6 +9111,17 @@ packages:
       webpack: 5.67.0
     dev: false
 
+  /save-file/2.3.1:
+    resolution: {integrity: sha512-VOD2Ojb1/kuj0XbvSXzZ5xr4rRSZD8f+HzKWGztXNp93gBQDj3njFt9HMhmLtnwd7q0BjJkzLXqd8M2+PFS1qg==}
+    dependencies:
+      file-saver: 2.0.5
+      is-blob: 1.0.0
+      is-buffer: 2.0.5
+      simple-mime: 0.1.0
+      to-array-buffer: 3.2.0
+      write: 1.0.3
+    dev: false
+
   /sax/1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
     dev: false
@@ -9220,6 +9307,11 @@ packages:
   /signal-exit/3.0.6:
     resolution: {integrity: sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==}
 
+  /simple-mime/0.1.0:
+    resolution: {integrity: sha1-lfUXxPRm18/1YacfydqyWW6p7y4=}
+    engines: {'0': node >= 0.2.0}
+    dev: false
+
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
     dev: false
@@ -9393,6 +9485,13 @@ packages:
 
   /string-natural-compare/3.0.1:
     resolution: {integrity: sha512-n3sPwynL1nwKi3WJ6AIsClwBMa0zTi54fn2oLU6ndfTSIO05xaznjSf15PcBZU6FNWbmN5Q6cxT4V5hGvB4taw==}
+    dev: false
+
+  /string-to-arraybuffer/1.0.2:
+    resolution: {integrity: sha512-DaGZidzi93dwjQen5I2osxR9ERS/R7B1PFyufNMnzhj+fmlDQAc1DSDIJVJhgI8Oq221efIMbABUBdPHDRt43Q==}
+    dependencies:
+      atob-lite: 2.0.0
+      is-base64: 0.1.0
     dev: false
 
   /string-width/2.1.1:
@@ -9865,6 +9964,14 @@ packages:
 
   /tmpl/1.0.5:
     resolution: {integrity: sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==}
+    dev: false
+
+  /to-array-buffer/3.2.0:
+    resolution: {integrity: sha512-zN33mwi0gpL+7xW1ITLfJ48CEj6ZQW0ZAP0MU+2W3kEY0PAIncyuxmD4OqkUVhPAbTP7amq9j/iwvZKYS+lzSQ==}
+    dependencies:
+      flatten-vertex-data: 1.0.2
+      is-blob: 2.1.0
+      string-to-arraybuffer: 1.0.2
     dev: false
 
   /to-fast-properties/2.0.0:
@@ -10553,7 +10660,6 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       mkdirp: 0.5.5
-    dev: true
 
   /ws/7.5.6:
     resolution: {integrity: sha512-6GLgCqo2cy2A2rjCNFlxQS6ZljG/coZfZXclldI8FB/1G3CCI36Zd8xy2HrFVACi8tfk5XrgLQEk+P0Tnz9UcA==}

@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import ReactAudioPlayer from 'react-audio-player';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
+import downloadFile from '../../../services/download-file';
 
 const AdminApiClient = AdminApi.getInstance();
 
@@ -52,22 +53,15 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
           controls
           style={{
             width: '100%',
-            background: '#C60C31',
-            borderRadius: '4px',
           }}
         />
 
         <IconButton
           disabled={!props.selected}
           color="primary"
-          onClick={() => {
-            const a = document.createElement('a');
-            a.href = props.selected.File.url;
-            a.target = '_blank';
-            a.setAttribute('download', props.selected.Title);
-            a.click();
-            document.body.removeChild(a);
-          }}
+          onClick={() =>
+            downloadFile(props.selected.File.url, props.selected.File.name)
+          }
         >
           <DownloadIcon />
         </IconButton>

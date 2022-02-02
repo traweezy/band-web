@@ -42,23 +42,14 @@ class AdminApi extends HttpClient {
     return response.data.results;
   };
 
-  //   public getCharacters = async (): Promise<PickedCharacter[]> => {
-  //     const response = await this.instance.get<QueryResult<PickedCharacter>>(
-  //       `/character`,
-  //     );
+  public getLyrics = async (): Promise<Lyrics[]> => {
+    const response = await this.instance.get<QueryResult<Tab>>(
+      `/content-manager/collection-types/api::lyric.lyric?pageSize=1000&sort=updatedAt:desc`,
+      { headers: { authorization: `Bearer ${window.localStorage.jwt_token}` } },
+    );
 
-  //     const { pages } = response.data.info;
-
-  //     const allCharacters = await Promise.all(
-  //       Array.from(Array(pages).keys()).map(page =>
-  //         this.instance
-  //           .get<QueryResult<PickedCharacter>>(`/character?page=${page + 1}`)
-  //           .then(({ data }) => data.results),
-  //       ),
-  //     );
-
-  //     return allCharacters.flat();
-  //   };
+    return response.data.results;
+  };
 }
 
 export default AdminApi;
