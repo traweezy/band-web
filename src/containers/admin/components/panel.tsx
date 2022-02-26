@@ -214,9 +214,9 @@ const Panel: React.FC<PanelProps> = ({
             height: isMobile() ? 'calc(100vh - 56px)' : '100%',
           }}
         >
-          {route.name === 'Lyrics' && <LyricsGrid open={dialogOpen} />}
-          {route.name === 'Recordings' && <RecordingsGrid open={dialogOpen} />}
-          {route.name === 'Tabs' && <TabsGrid open={dialogOpen} />}
+          {route?.name === 'Lyrics' && <LyricsGrid open={dialogOpen} />}
+          {route?.name === 'Recordings' && <RecordingsGrid open={dialogOpen} />}
+          {route?.name === 'Tabs' && <TabsGrid open={dialogOpen} />}
         </Paper>
       </Box>
     </Box>

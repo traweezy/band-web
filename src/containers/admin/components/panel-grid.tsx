@@ -29,7 +29,7 @@ const PanelGrid = ({
   const [recordingGridState, setGridState] = useState<GridState>(
     GridState.INITIAL,
   );
-  console.log('PanelGrid', open);
+
   useEffect(() => {
     if (recordingGridState === GridState.INITIAL) {
       try {

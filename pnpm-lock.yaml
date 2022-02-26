@@ -23,7 +23,6 @@ specifiers:
   '@types/react-howler': ^3.7.3
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
-  DesktopDatePicker: link:@mui/lab/DesktopDatePicker
   axios: ^0.25.0
   change-case: ^4.1.2
   dayjs: ^1.10.7
@@ -75,7 +74,6 @@ dependencies:
   '@testing-library/jest-dom': 5.16.2
   '@testing-library/react': 12.1.3_react-dom@17.0.2+react@17.0.2
   '@testing-library/user-event': 13.5.0
-  DesktopDatePicker: link:@mui/lab/DesktopDatePicker
   axios: 0.25.0
   change-case: 4.1.2
   dayjs: 1.10.7

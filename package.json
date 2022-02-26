@@ -16,7 +16,6 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "DesktopDatePicker": "link:@mui/lab/DesktopDatePicker",
     "axios": "^0.25.0",
     "change-case": "^4.1.2",
     "dayjs": "^1.10.7",
