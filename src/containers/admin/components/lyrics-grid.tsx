@@ -5,10 +5,12 @@ import ShareIcon from '@mui/icons-material/Share';
 import PreviewIcon from '@mui/icons-material/Preview';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 import downloadFile from '../../../services/download-file';
+import EllipsisCell from './ellipsis-cell';
 
 const AdminApiClient = AdminApi.getInstance();
 
@@ -30,6 +32,7 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 
   return (
     <>
+      <Divider />
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={snackOpen}
@@ -81,11 +84,31 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 };
 
 const columns: GridColDef[] = [
-  { field: 'Title', headerName: 'Title', width: 200 },
-  { field: 'Author', headerName: 'Author', width: 150 },
-  { field: 'Version', headerName: 'Version', width: 150 },
-  { field: 'File.mime', headerName: 'File Type', width: 150 },
-  { field: 'File.provider', headerName: 'File Provider', width: 150 },
+  { field: 'Title', headerName: 'Title', width: 200, renderCell: EllipsisCell },
+  {
+    field: 'Author',
+    headerName: 'Author',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'Version',
+    headerName: 'Version',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.mime',
+    headerName: 'File Type',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.provider',
+    headerName: 'File Provider',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
   {
     field: 'File.size',
     headerName: 'File Size',
@@ -94,12 +117,17 @@ const columns: GridColDef[] = [
   },
 ];
 
-const TabsGrid = () => (
+interface LyricsGridProps {
+  open?: boolean;
+}
+
+const LyricsGrid: React.FC<LyricsGridProps> = ({ open }) => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getLyrics}
+    open={open}
   />
 );
 
-export default TabsGrid;
+export default LyricsGrid;

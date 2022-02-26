@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -14,18 +14,16 @@ import UploadIcon from '@mui/icons-material/Upload';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import MenuIcon from '@mui/icons-material/Menu';
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import { styled, useTheme } from '@mui/material/styles';
 import useMobileDetect from 'use-mobile-detect-hook';
 import { useLocation, Link } from 'react-router-dom';
 import BandLogo from '../../../assets/band-logo.png';
+import { AspectRatio } from 'react-aspect-ratio';
+import LyricsGrid from './lyrics-grid';
 import RecordingsGrid from './recordings-grid';
 import TabsGrid from './tabs-grid';
-import LyricsGrid from './lyrics-grid';
-import { AspectRatio } from 'react-aspect-ratio';
+import type { SideNavigationRoutes, SideNavigationRoutePath } from '../index';
 
 const drawerWidth = 200;
 
@@ -37,44 +35,21 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-type SideNavigationRoutePath = `/admin/${'recordings' | 'tabs' | 'lyrics'}`;
+interface PanelProps {
+  handleUploadDialogeIsOpen: (isOpen: boolean) => void;
+  routes: SideNavigationRoutes;
+  dialogOpen: boolean;
+}
 
-type SideNavigationRoutes = {
-  [key in SideNavigationRoutePath]: {
-    name: string;
-    path: SideNavigationRoutePath;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Icon: any;
-    Component: React.ComponentType<unknown>;
-  };
-};
-
-const sideNavigationRoutes: SideNavigationRoutes = {
-  '/admin/recordings': {
-    name: 'Recordings',
-    path: '/admin/recordings',
-    Icon: LibraryMusicIcon,
-    Component: RecordingsGrid,
-  },
-  '/admin/tabs': {
-    name: 'Tabs',
-    path: '/admin/tabs',
-    Icon: TextSnippetIcon,
-    Component: TabsGrid,
-  },
-  '/admin/lyrics': {
-    name: 'Lyrics',
-    path: '/admin/lyrics',
-    Icon: NoteAltIcon,
-    Component: LyricsGrid,
-  },
-};
-
-const Panel = () => {
+const Panel: React.FC<PanelProps> = ({
+  handleUploadDialogeIsOpen,
+  routes,
+  dialogOpen,
+}) => {
   const { isMobile }: MobileDetector = useMobileDetect();
   const location = useLocation();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -84,8 +59,8 @@ const Panel = () => {
     setOpen(false);
   };
 
-  const route =
-    sideNavigationRoutes[location.pathname as SideNavigationRoutePath];
+  const route = routes[location.pathname as SideNavigationRoutePath];
+
   return (
     <Box sx={{ display: 'flex', height: 'calc(100vh - 77px)' }}>
       <CssBaseline />
@@ -139,7 +114,7 @@ const Panel = () => {
           <Toolbar />
           <Box sx={{ overflow: 'auto' }}>
             <List>
-              <ListItem button disabled>
+              <ListItem button onClick={() => handleUploadDialogeIsOpen(true)}>
                 <ListItemIcon>
                   <UploadIcon />
                 </ListItemIcon>
@@ -148,31 +123,27 @@ const Panel = () => {
             </List>
             <Divider />
             <List>
-              {Object.values(sideNavigationRoutes).map(
-                ({ name, Icon, path }) => (
-                  <Link to={path} key={name}>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <Icon
-                          color={
-                            location.pathname === path ? 'primary' : undefined
-                          }
-                        />
-                      </ListItemIcon>
-
-                      <ListItemText
-                        primary={name}
-                        sx={{
-                          color:
-                            location.pathname === path
-                              ? 'primary.main'
-                              : 'white',
-                        }}
+              {Object.values(routes).map(({ name, Icon, path }) => (
+                <Link to={path} key={name}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <Icon
+                        color={
+                          location.pathname === path ? 'primary' : undefined
+                        }
                       />
-                    </ListItem>
-                  </Link>
-                ),
-              )}
+                    </ListItemIcon>
+
+                    <ListItemText
+                      primary={name}
+                      sx={{
+                        color:
+                          location.pathname === path ? 'primary.main' : 'white',
+                      }}
+                    />
+                  </ListItem>
+                </Link>
+              ))}
             </List>
           </Box>
         </Drawer>
@@ -210,31 +181,27 @@ const Panel = () => {
             </List>
             <Divider />
             <List>
-              {Object.values(sideNavigationRoutes).map(
-                ({ name, Icon, path }) => (
-                  <Link to={path} key={name}>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <Icon
-                          color={
-                            location.pathname === path ? 'primary' : undefined
-                          }
-                        />
-                      </ListItemIcon>
-
-                      <ListItemText
-                        primary={name}
-                        sx={{
-                          color:
-                            location.pathname === path
-                              ? 'primary.main'
-                              : 'white',
-                        }}
+              {Object.values(routes).map(({ name, Icon, path }) => (
+                <Link to={path} key={name}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <Icon
+                        color={
+                          location.pathname === path ? 'primary' : undefined
+                        }
                       />
-                    </ListItem>
-                  </Link>
-                ),
-              )}
+                    </ListItemIcon>
+
+                    <ListItemText
+                      primary={name}
+                      sx={{
+                        color:
+                          location.pathname === path ? 'primary.main' : 'white',
+                      }}
+                    />
+                  </ListItem>
+                </Link>
+              ))}
             </List>
           </Box>
         </Drawer>
@@ -247,7 +214,9 @@ const Panel = () => {
             height: isMobile() ? 'calc(100vh - 56px)' : '100%',
           }}
         >
-          {route ? <route.Component /> : null}
+          {route.name === 'Lyrics' && <LyricsGrid open={dialogOpen} />}
+          {route.name === 'Recordings' && <RecordingsGrid open={dialogOpen} />}
+          {route.name === 'Tabs' && <TabsGrid open={dialogOpen} />}
         </Paper>
       </Box>
     </Box>

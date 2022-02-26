@@ -50,6 +50,36 @@ class AdminApi extends HttpClient {
 
     return response.data.results;
   };
+
+  public postLyrics = async (payload: Partial<Lyrics>): Promise<void> => {
+    await this.instance.post<Partial<Lyrics>>(
+      '/content-manager/collection-types/api::lyric.lyric',
+      payload,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
+
+  public postTab = async (payload: Partial<Tab>): Promise<void> => {
+    await this.instance.post<Partial<Tab>>(
+      '/content-manager/collection-types/api::tab.tab',
+      payload,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
+
+  public postRecording = async (payload: Partial<Recording>): Promise<void> => {
+    await this.instance.post<Partial<Recording>>(
+      '/content-manager/collection-types/api::song.song',
+      payload,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
 }
 
 export default AdminApi;

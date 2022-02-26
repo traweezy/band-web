@@ -9,6 +9,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 import downloadFile from '../../../services/download-file';
+import EllipsisCell from './ellipsis-cell';
 
 const AdminApiClient = AdminApi.getInstance();
 
@@ -82,10 +83,25 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 };
 
 const columns: GridColDef[] = [
-  { field: 'Title', headerName: 'Title', width: 200 },
-  { field: 'recordedAt', headerName: 'Recorded At', width: 150 },
-  { field: 'File.mime', headerName: 'File Type', width: 150 },
-  { field: 'File.provider', headerName: 'File Provider', width: 150 },
+  { field: 'Title', headerName: 'Title', width: 200, renderCell: EllipsisCell },
+  {
+    field: 'recordedAt',
+    headerName: 'Recorded At',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.mime',
+    headerName: 'File Type',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.provider',
+    headerName: 'File Provider',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
   {
     field: 'File.size',
     headerName: 'File Size',
@@ -94,11 +110,16 @@ const columns: GridColDef[] = [
   },
 ];
 
-const RecordingGrid = () => (
+interface RecordingGridProps {
+  open?: boolean;
+}
+
+const RecordingGrid: React.FC<RecordingGridProps> = ({ open }) => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getRecordings}
+    open={open}
   />
 );
 

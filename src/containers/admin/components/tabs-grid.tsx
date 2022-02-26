@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 import downloadFile from '../../../services/download-file';
+import EllipsisCell from './ellipsis-cell';
 
 const AdminApiClient = AdminApi.getInstance();
 
@@ -82,12 +83,37 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
 };
 
 const columns: GridColDef[] = [
-  { field: 'Title', headerName: 'Title', width: 200 },
-  { field: 'Instrument', headerName: 'Instrument', width: 150 },
-  { field: 'Author', headerName: 'Author', width: 150 },
-  { field: 'Version', headerName: 'Version', width: 150 },
-  { field: 'File.mime', headerName: 'File Type', width: 150 },
-  { field: 'File.provider', headerName: 'File Provider', width: 150 },
+  { field: 'Title', headerName: 'Title', width: 200, renderCell: EllipsisCell },
+  {
+    field: 'Instrument',
+    headerName: 'Instrument',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'Author',
+    headerName: 'Author',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'Version',
+    headerName: 'Version',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.mime',
+    headerName: 'File Type',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
+  {
+    field: 'File.provider',
+    headerName: 'File Provider',
+    width: 150,
+    renderCell: EllipsisCell,
+  },
   {
     field: 'File.size',
     headerName: 'File Size',
@@ -96,11 +122,16 @@ const columns: GridColDef[] = [
   },
 ];
 
-const TabsGrid = () => (
+interface TabsGridProps {
+  open?: boolean;
+}
+
+const TabsGrid: React.FC<TabsGridProps> = ({ open }) => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getTabs}
+    open={open}
   />
 );
 

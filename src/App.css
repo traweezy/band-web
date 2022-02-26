@@ -1,3 +1,7 @@
 *img {
   image-rendering: -webkit-optimize-contrast !important;
 }
+
+.filepond--drop-label {
+  background-color: #c0c0c0 !important;
+}

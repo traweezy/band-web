@@ -14,16 +14,22 @@ interface PanelGridProps {
   getData: () => Promise<unknown[]>;
   columns: GridColDef[];
   footerComponent: React.JSXElementConstructor<unknown> | undefined;
+  open?: boolean;
 }
 
-const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
+const PanelGrid = ({
+  getData,
+  columns,
+  footerComponent,
+  open,
+}: PanelGridProps) => {
   const { isMobile }: MobileDetector = useMobileDetect();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
   const [recordingGridState, setGridState] = useState<GridState>(
     GridState.INITIAL,
   );
-
+  console.log('PanelGrid', open);
   useEffect(() => {
     if (recordingGridState === GridState.INITIAL) {
       try {
@@ -39,6 +45,13 @@ const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
   }, [recordingGridState]);
 
   const [selected, setSelected] = useState<unknown | null>(null);
+
+  useEffect(() => {
+    getData().then(res => {
+      setData(res);
+      setGridState(GridState.READY);
+    });
+  }, [open]);
 
   return (
     <>
