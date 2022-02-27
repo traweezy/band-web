@@ -17,12 +17,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled, useTheme } from '@mui/material/styles';
 import useMobileDetect from 'use-mobile-detect-hook';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import BandLogo from '../../../assets/band-logo.png';
 import { AspectRatio } from 'react-aspect-ratio';
-import LyricsGrid from './lyrics-grid';
-import RecordingsGrid from './recordings-grid';
-import TabsGrid from './tabs-grid';
 import type { SideNavigationRoutes, SideNavigationRoutePath } from '../index';
 
 const drawerWidth = 200;
@@ -36,18 +33,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 interface PanelProps {
-  handleUploadDialogeIsOpen: (isOpen: boolean) => void;
   routes: SideNavigationRoutes;
-  dialogOpen: boolean;
 }
 
-const Panel: React.FC<PanelProps> = ({
-  handleUploadDialogeIsOpen,
-  routes,
-  dialogOpen,
-}) => {
+const Panel: React.FC<PanelProps> = ({ routes }) => {
   const { isMobile }: MobileDetector = useMobileDetect();
   const location = useLocation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -57,6 +49,10 @@ const Panel: React.FC<PanelProps> = ({
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleUploadOnClick = () => {
+    navigate(`${location.pathname}?action=upload`);
   };
 
   const route = routes[location.pathname as SideNavigationRoutePath];
@@ -114,7 +110,7 @@ const Panel: React.FC<PanelProps> = ({
           <Toolbar />
           <Box sx={{ overflow: 'auto' }}>
             <List>
-              <ListItem button onClick={() => handleUploadDialogeIsOpen(true)}>
+              <ListItem button onClick={() => handleUploadOnClick()}>
                 <ListItemIcon>
                   <UploadIcon />
                 </ListItemIcon>
@@ -214,9 +210,7 @@ const Panel: React.FC<PanelProps> = ({
             height: isMobile() ? 'calc(100vh - 56px)' : '100%',
           }}
         >
-          {route?.name === 'Lyrics' && <LyricsGrid open={dialogOpen} />}
-          {route?.name === 'Recordings' && <RecordingsGrid open={dialogOpen} />}
-          {route?.name === 'Tabs' && <TabsGrid open={dialogOpen} />}
+          {route ? <route.Component /> : null}
         </Paper>
       </Box>
     </Box>

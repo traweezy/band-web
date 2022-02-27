@@ -80,6 +80,33 @@ class AdminApi extends HttpClient {
       },
     );
   };
+
+  public deleteLyrics = async (id: number): Promise<void> => {
+    await this.instance.delete<Partial<Lyrics>>(
+      `/content-manager/collection-types/api::lyric.lyric/${id}`,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
+
+  public deleteTab = async (id: number): Promise<void> => {
+    await this.instance.delete<Partial<Tab>>(
+      `/content-manager/collection-types/api::tab.tab/${id}`,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
+
+  public deleteRecording = async (id: number): Promise<void> => {
+    await this.instance.delete<Partial<Recording>>(
+      `/content-manager/collection-types/api::song.song/${id}`,
+      {
+        headers: { authorization: `Bearer ${window.localStorage.jwt_token}` },
+      },
+    );
+  };
 }
 
 export default AdminApi;

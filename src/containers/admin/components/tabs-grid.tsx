@@ -3,8 +3,10 @@ import { GridColDef } from '@mui/x-data-grid';
 import DownloadIcon from '@mui/icons-material/Download';
 import PreviewIcon from '@mui/icons-material/Preview';
 import ShareIcon from '@mui/icons-material/Share';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+import { useNavigate, useLocation } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
@@ -20,6 +22,8 @@ interface FooterProps {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
   const [snackOpen, setSnackOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     setSnackOpen(true);
@@ -77,6 +81,17 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
         >
           <ShareIcon />
         </IconButton>
+        <IconButton
+          disabled={!props.selected}
+          color="primary"
+          onClick={() => {
+            navigate(
+              `${location.pathname}?action=delete&id=${props.selected.id}`,
+            );
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </Stack>
     </>
   );
@@ -122,16 +137,11 @@ const columns: GridColDef[] = [
   },
 ];
 
-interface TabsGridProps {
-  open?: boolean;
-}
-
-const TabsGrid: React.FC<TabsGridProps> = ({ open }) => (
+const TabsGrid: React.FC = () => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getTabs}
-    open={open}
   />
 );
 

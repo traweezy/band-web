@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { GridColDef } from '@mui/x-data-grid';
 import DownloadIcon from '@mui/icons-material/Download';
 import ShareIcon from '@mui/icons-material/Share';
@@ -7,6 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 import downloadFile from '../../../services/download-file';
@@ -21,6 +23,8 @@ interface FooterProps {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
   const [snackOpen, setSnackOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     setSnackOpen(true);
@@ -78,6 +82,17 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
         >
           <ShareIcon />
         </IconButton>
+        <IconButton
+          disabled={!props.selected}
+          color="primary"
+          onClick={() => {
+            navigate(
+              `${location.pathname}?action=delete&id=${props.selected.id}`,
+            );
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </Stack>
     </>
   );
@@ -117,16 +132,11 @@ const columns: GridColDef[] = [
   },
 ];
 
-interface LyricsGridProps {
-  open?: boolean;
-}
-
-const LyricsGrid: React.FC<LyricsGridProps> = ({ open }) => (
+const LyricsGrid: React.FC = () => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getLyrics}
-    open={open}
   />
 );
 

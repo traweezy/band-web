@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useLocation } from 'react-router-dom';
 import flatten from 'flat';
 import useMobileDetect from 'use-mobile-detect-hook';
 
@@ -14,15 +15,9 @@ interface PanelGridProps {
   getData: () => Promise<unknown[]>;
   columns: GridColDef[];
   footerComponent: React.JSXElementConstructor<unknown> | undefined;
-  open?: boolean;
 }
 
-const PanelGrid = ({
-  getData,
-  columns,
-  footerComponent,
-  open,
-}: PanelGridProps) => {
+const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
   const { isMobile }: MobileDetector = useMobileDetect();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
@@ -45,13 +40,14 @@ const PanelGrid = ({
   }, [recordingGridState]);
 
   const [selected, setSelected] = useState<unknown | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     getData().then(res => {
       setData(res);
       setGridState(GridState.READY);
     });
-  }, [open]);
+  }, [location]);
 
   return (
     <>

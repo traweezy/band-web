@@ -14,6 +14,7 @@ import Background from './components/background';
 import Login from './components/login';
 import Panel from './components/panel';
 import UploadDialog from './components/upload-dialog';
+import DeleteDialog from './components/delete-dialog';
 
 const theme = createTheme({
   palette: {
@@ -97,8 +98,6 @@ const Admin = () => {
     }
   }, [jwtToken]);
 
-  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
-
   return (
     <ThemeProvider theme={theme}>
       <div className="font-metal-mania">
@@ -106,16 +105,9 @@ const Admin = () => {
         <Login show={!isValidated} />
         {isValidated && (
           <>
-            <Panel
-              handleUploadDialogeIsOpen={setIsUploadDialogOpen}
-              routes={sideNavigationRoutes}
-              dialogOpen={isUploadDialogOpen}
-            />
-            <UploadDialog
-              open={isUploadDialogOpen}
-              handleUploadDialogeIsOpen={setIsUploadDialogOpen}
-              routes={sideNavigationRoutes}
-            />
+            <Panel routes={sideNavigationRoutes} />
+            <UploadDialog routes={sideNavigationRoutes} />
+            <DeleteDialog routes={sideNavigationRoutes} />
           </>
         )}
       </div>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -20,20 +20,24 @@ import RecordingsForm from './recordings-form';
 const AdminApiClient = AdminApi.getInstance();
 
 interface FormDialogProps {
-  open?: boolean;
-  handleUploadDialogeIsOpen: (isOpen: boolean) => void;
   routes: SideNavigationRoutes;
 }
 
-const FormDialog: React.FC<FormDialogProps> = ({
-  open,
-  handleUploadDialogeIsOpen,
-  routes,
-}) => {
+const FormDialog: React.FC<FormDialogProps> = ({ routes }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (location.search.includes('action=upload')) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [location]);
 
   const handleClose = () => {
-    handleUploadDialogeIsOpen(false);
+    navigate(location.pathname);
   };
 
   const [type, setType] = useState(() => {
@@ -84,7 +88,7 @@ const FormDialog: React.FC<FormDialogProps> = ({
   };
 
   return (
-    <Dialog open={open ?? false} onClose={handleClose}>
+    <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle>Upload {type}</DialogTitle>
       <DialogContent
         sx={{

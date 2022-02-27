@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { GridColDef } from '@mui/x-data-grid';
 import DownloadIcon from '@mui/icons-material/Download';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import Snackbar from '@mui/material/Snackbar';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import ReactAudioPlayer from 'react-audio-player';
@@ -20,6 +22,8 @@ interface FooterProps {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
   const [snackOpen, setSnackOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     setSnackOpen(true);
@@ -77,6 +81,17 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
         >
           <ShareIcon />
         </IconButton>
+        <IconButton
+          disabled={!props.selected}
+          color="primary"
+          onClick={() => {
+            navigate(
+              `${location.pathname}?action=delete&id=${props.selected.id}`,
+            );
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </Stack>
     </>
   );
@@ -110,16 +125,11 @@ const columns: GridColDef[] = [
   },
 ];
 
-interface RecordingGridProps {
-  open?: boolean;
-}
-
-const RecordingGrid: React.FC<RecordingGridProps> = ({ open }) => (
+const RecordingGrid: React.FC = () => (
   <PanelGrid
     columns={columns}
     footerComponent={Footer}
     getData={AdminApiClient.getRecordings}
-    open={open}
   />
 );
 
