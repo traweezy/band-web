@@ -13,6 +13,7 @@ import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
 import downloadFile from '../../../services/download-file';
 import EllipsisCell from './ellipsis-cell';
+import Tooltip from '@mui/material/Tooltip';
 
 const AdminApiClient = AdminApi.getInstance();
 
@@ -61,7 +62,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             downloadFile(props.selected.File.url, props.selected.File.name)
           }
         >
-          <DownloadIcon />
+          <Tooltip title="Download">
+            <DownloadIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={
@@ -70,7 +73,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
           color="primary"
           onClick={() => window.open(props.selected.File.url, '_blank')}
         >
-          <PreviewIcon />
+          <Tooltip title="View">
+            <PreviewIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={!props.selected}
@@ -80,7 +85,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             handleClick();
           }}
         >
-          <ShareIcon />
+          <Tooltip title="Share">
+            <ShareIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={!props.selected}
@@ -91,7 +98,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             );
           }}
         >
-          <DeleteIcon />
+          <Tooltip title="Delete">
+            <DeleteIcon />
+          </Tooltip>
         </IconButton>
       </Stack>
     </>

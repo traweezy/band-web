@@ -7,6 +7,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import ReactAudioPlayer from 'react-audio-player';
 import AdminApi from '../../../services/admin-api';
 import PanelGrid from './panel-grid';
@@ -68,7 +69,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             downloadFile(props.selected.File.url, props.selected.File.name)
           }
         >
-          <DownloadIcon />
+          <Tooltip title="Download">
+            <DownloadIcon />
+          </Tooltip>
         </IconButton>
 
         <IconButton
@@ -79,7 +82,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             handleClick();
           }}
         >
-          <ShareIcon />
+          <Tooltip title="Share">
+            <ShareIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={!props.selected}
@@ -90,7 +95,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             );
           }}
         >
-          <DeleteIcon />
+          <Tooltip title="Delete">
+            <DeleteIcon />
+          </Tooltip>
         </IconButton>
       </Stack>
     </>

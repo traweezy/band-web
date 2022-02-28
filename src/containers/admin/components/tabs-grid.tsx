@@ -6,6 +6,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
 import { useNavigate, useLocation } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import AdminApi from '../../../services/admin-api';
@@ -59,7 +60,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             downloadFile(props.selected.File.url, props.selected.File.name)
           }
         >
-          <DownloadIcon />
+          <Tooltip title="Download">
+            <DownloadIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={
@@ -68,7 +71,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
           color="primary"
           onClick={() => window.open(props.selected.File.url, '_blank')}
         >
-          <PreviewIcon />
+          <Tooltip title="View">
+            <PreviewIcon />
+          </Tooltip>
         </IconButton>
 
         <IconButton
@@ -79,7 +84,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             handleClick();
           }}
         >
-          <ShareIcon />
+          <Tooltip title="Share">
+            <ShareIcon />
+          </Tooltip>
         </IconButton>
         <IconButton
           disabled={!props.selected}
@@ -90,7 +97,9 @@ const Footer: React.JSXElementConstructor<any> = (props: FooterProps) => {
             );
           }}
         >
-          <DeleteIcon />
+          <Tooltip title="Delete">
+            <DeleteIcon />
+          </Tooltip>
         </IconButton>
       </Stack>
     </>
