@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useLocation } from 'react-router-dom';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import flatten from 'flat';
 import useMobileDetect from 'use-mobile-detect-hook';
+import { toast } from 'react-toastify';
 
 const enum GridState {
   INITIAL,
@@ -27,15 +28,16 @@ const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
 
   useEffect(() => {
     if (recordingGridState === GridState.INITIAL) {
-      try {
-        setGridState(GridState.PENDING);
-        getData().then(res => {
+      setGridState(GridState.PENDING);
+      getData()
+        .then(res => {
           setData(res);
           setGridState(GridState.READY);
+        })
+        .catch(error => {
+          toast.error((error as Error).message);
+          setGridState(GridState.ERROR);
         });
-      } catch (error) {
-        setGridState(GridState.ERROR);
-      }
     }
   }, [recordingGridState]);
 
