@@ -85,7 +85,7 @@ const Admin = () => {
   const [isValidated, setIsValid] = useState(jwtValid(jwtToken));
 
   useEffect(() => {
-    if (jwtValid(jwtToken)) {
+    if (jwtToken) {
       setIsValid(true);
     }
   }, [jwtToken]);
