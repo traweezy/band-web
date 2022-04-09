@@ -61,7 +61,7 @@ const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
           recordingGridState === GridState.PENDING ||
           recordingGridState === GridState.INITIAL
         }
-        rows={data.map(flatten)}
+        rows={data.map(flatten) as any}
         columns={
           !isMobile()
             ? columns.map(column => {

@@ -86,8 +86,11 @@ const Admin = () => {
 
   useEffect(() => {
     if (jwtToken) {
-      const { exp } =
-        jwtDecode<{ id: number; iat: number; exp: number }>(jwtToken);
+      const { exp } = jwtDecode<{
+        id: number;
+        iat: number;
+        exp: number;
+      }>(jwtToken);
       if (Date.now() >= exp * 1000) {
         setIsValid(false);
       } else {

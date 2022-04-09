@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+    "err": {
+      "name": "pnpm",
+      "message": "No package.json (or package.yaml, or package.json5) was found in \"/home/traweezy/projects/envoys-web\".",
+      "code": "ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND",
+      "stack": "pnpm: No package.json (or package.yaml, or package.json5) was found in \"/home/traweezy/projects/envoys-web\".\n    at readProjectManifest (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:19793:13)\n    at async Object.readProjectManifestOnly (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:19797:28)\n    at async readProjectManifestOnly (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:43611:24)\n    at async Object.handler (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:177376:24)\n    at async /home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:181595:21\n    at async run (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:181569:34)\n    at async runPnpm (/home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:181780:5)\n    at async /home/traweezy/.nvm/versions/node/v16.11.1/lib/node_modules/pnpm/dist/pnpm.cjs:181772:7"
+    }
+  }
+}
