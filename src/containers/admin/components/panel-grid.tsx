@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import type { GridValidRowModel } from '@mui/x-data-grid';
 import flatten from 'flat';
 import useMobileDetect from 'use-mobile-detect-hook';
 import { toast } from 'react-toastify';
@@ -61,7 +62,7 @@ const PanelGrid = ({ getData, columns, footerComponent }: PanelGridProps) => {
           recordingGridState === GridState.PENDING ||
           recordingGridState === GridState.INITIAL
         }
-        rows={data.map(flatten) as any}
+        rows={data.map(flatten) as readonly GridValidRowModel[]}
         columns={
           !isMobile()
             ? columns.map(column => {
