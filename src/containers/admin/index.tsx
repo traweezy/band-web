@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import jwtValid from 'jwt-valid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocalStorage } from '@rehooks/local-storage';
-import type {} from '@mui/x-data-grid/themeAugmentation';
+import jwtDecode from 'jwt-decode';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
@@ -86,7 +86,13 @@ const Admin = () => {
 
   useEffect(() => {
     if (jwtToken) {
-      setIsValid(true);
+      const { exp } =
+        jwtDecode<{ id: number; iat: number; exp: number }>(jwtToken);
+      if (Date.now() >= exp * 1000) {
+        setIsValid(false);
+      } else {
+        setIsValid(true);
+      }
     }
   }, [jwtToken]);
 
