@@ -12,16 +12,12 @@ abstract class HttpClient {
   }
 
   private _initializeResponseInterceptor = () => {
-    this.instance.interceptors.response.use(
-      this._handleResponse,
-      this.handleError,
-    );
+    this.instance.interceptors.response.use(this._handleResponse, this.handleError);
   };
 
   private _handleResponse = <T>(res: AxiosResponse<T>) => res;
 
-  protected handleError = (error: unknown): Promise<never> =>
-    Promise.reject(error);
+  protected handleError = (error: unknown): Promise<never> => Promise.reject(error);
 }
 
 export default HttpClient;

@@ -4,17 +4,13 @@ import jwtValid from 'jwt-valid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocalStorage } from '@rehooks/local-storage';
 import jwtDecode from 'jwt-decode';
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-import RecordingsGrid from './components/recordings-grid';
-import TabsGrid from './components/tabs-grid';
-import LyricsGrid from './components/lyrics-grid';
+
 import Background from './components/background';
 import Login from './components/login';
 import Panel from './components/panel';
 import UploadDialog from './components/upload-dialog';
 import DeleteDialog from './components/delete-dialog';
+import ImagePreview from './components/image-preview';
 
 const theme = createTheme({
   palette: {
@@ -41,44 +37,6 @@ const theme = createTheme({
     ].join(','),
   },
 });
-
-export type SideNavigationRoutePath = `/admin/${
-  | 'recordings'
-  | 'tabs'
-  | 'lyrics'}`;
-
-export type Route = {
-  name: string;
-  path: SideNavigationRoutePath;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Icon: any;
-  Component: React.ComponentType<unknown>;
-};
-
-export type SideNavigationRoutes = {
-  [key in SideNavigationRoutePath]: Route;
-};
-
-const sideNavigationRoutes: SideNavigationRoutes = {
-  '/admin/recordings': {
-    name: 'Recordings',
-    path: '/admin/recordings',
-    Icon: LibraryMusicIcon,
-    Component: RecordingsGrid,
-  },
-  '/admin/tabs': {
-    name: 'Tabs',
-    path: '/admin/tabs',
-    Icon: TextSnippetIcon,
-    Component: TabsGrid,
-  },
-  '/admin/lyrics': {
-    name: 'Lyrics',
-    path: '/admin/lyrics',
-    Icon: NoteAltIcon,
-    Component: LyricsGrid,
-  },
-};
 
 const Admin = () => {
   const [jwtToken] = useLocalStorage<string>('jwt_token');
@@ -114,9 +72,10 @@ const Admin = () => {
         <Login show={!isValidated} />
         {isValidated && (
           <>
-            <Panel routes={sideNavigationRoutes} />
-            <UploadDialog routes={sideNavigationRoutes} />
-            <DeleteDialog routes={sideNavigationRoutes} />
+            <Panel />
+            <UploadDialog />
+            <DeleteDialog />
+            <ImagePreview />
           </>
         )}
       </div>

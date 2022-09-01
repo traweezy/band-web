@@ -62,6 +62,32 @@ interface Lyrics {
   updatedBy: User;
 }
 
+interface Event {
+  id: number;
+  Title: string;
+  LocationName: string;
+  LocationUrl: string;
+  TicketsUrl: string;
+  Date: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  File: File;
+  createdBy: User;
+  updatedBy: User;
+}
+
+interface Image {
+  id: number;
+  Title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  File: File;
+  createdBy: User;
+  updatedBy: User;
+}
+
 interface File {
   id: number;
   name: string;

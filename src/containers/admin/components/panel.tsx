@@ -17,12 +17,27 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled, useTheme } from '@mui/material/styles';
 import useMobileDetect from 'use-mobile-detect-hook';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
-import BandLogo from '../../../assets/band-logo.png';
+import { useLocation, Link } from 'react-router-dom';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import ImageIcon from '@mui/icons-material/Image';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import EventIcon from '@mui/icons-material/Event';
 import { AspectRatio } from 'react-aspect-ratio';
-import type { SideNavigationRoutes, SideNavigationRoutePath } from '../index';
+import shallow from 'zustand/shallow';
+import BandLogo from '../../../assets/band-logo.png';
+import { useStore } from '../../../store/local';
+import Grid from './grid';
 
 const drawerWidth = 200;
+
+const icons: Record<keyof SideNavigationRoutes, any> = {
+  '/admin/recordings': LibraryMusicIcon,
+  '/admin/tabs': TextSnippetIcon,
+  '/admin/lyrics': NoteAltIcon,
+  '/admin/events': EventIcon,
+  '/admin/images': ImageIcon,
+};
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -32,14 +47,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-interface PanelProps {
-  routes: SideNavigationRoutes;
-}
+const Panel = () => {
+  const { routes, openUploadDialog } = useStore(
+    state => ({ routes: state.routes, openUploadDialog: state.openUploadDialog }),
+    shallow,
+  );
 
-const Panel: React.FC<PanelProps> = ({ routes }) => {
-  const { isMobile }: MobileDetector = useMobileDetect();
+  const { isMobile } = useMobileDetect();
   const location = useLocation();
-  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -51,19 +66,10 @@ const Panel: React.FC<PanelProps> = ({ routes }) => {
     setOpen(false);
   };
 
-  const handleUploadOnClick = () => {
-    navigate(`${location.pathname}?action=upload`);
-  };
-
-  const route = routes[location.pathname as SideNavigationRoutePath];
-
   return (
     <Box sx={{ display: 'flex', height: 'calc(100vh - 77px)' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
-      >
+      <AppBar position="fixed" sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}>
         <Toolbar
           sx={{
             display: 'flex',
@@ -95,55 +101,7 @@ const Panel: React.FC<PanelProps> = ({ routes }) => {
           )}
         </Toolbar>
       </AppBar>
-      {!isMobile() ? (
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: 'auto' }}>
-            <List>
-              <ListItem button onClick={() => handleUploadOnClick()}>
-                <ListItemIcon>
-                  <UploadIcon />
-                </ListItemIcon>
-                <ListItemText primary="Upload" />
-              </ListItem>
-            </List>
-            <Divider />
-            <List>
-              {Object.values(routes).map(({ name, Icon, path }) => (
-                <Link to={path} key={name}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <Icon
-                        color={
-                          location.pathname === path ? 'primary' : undefined
-                        }
-                      />
-                    </ListItemIcon>
-
-                    <ListItemText
-                      primary={name}
-                      sx={{
-                        color:
-                          location.pathname === path ? 'primary.main' : 'white',
-                      }}
-                    />
-                  </ListItem>
-                </Link>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
-      ) : (
+      {isMobile() ? (
         <Drawer
           sx={{
             flexShrink: 0,
@@ -158,17 +116,13 @@ const Panel: React.FC<PanelProps> = ({ routes }) => {
         >
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </DrawerHeader>
           <Divider />
           <Box sx={{ overflow: 'auto' }}>
             <List>
-              <ListItem button disabled>
+              <ListItem button={true} disabled={true}>
                 <ListItemIcon>
                   <UploadIcon />
                 </ListItemIcon>
@@ -177,27 +131,72 @@ const Panel: React.FC<PanelProps> = ({ routes }) => {
             </List>
             <Divider />
             <List>
-              {Object.values(routes).map(({ name, Icon, path }) => (
-                <Link to={path} key={name}>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <Icon
-                        color={
-                          location.pathname === path ? 'primary' : undefined
-                        }
-                      />
-                    </ListItemIcon>
+              {Object.values(routes).map(({ name, path }) => {
+                const Icon = icons[path];
 
-                    <ListItemText
-                      primary={name}
-                      sx={{
-                        color:
-                          location.pathname === path ? 'primary.main' : 'white',
-                      }}
-                    />
-                  </ListItem>
-                </Link>
-              ))}
+                return (
+                  <Link to={path} key={name}>
+                    <ListItem button={true}>
+                      <ListItemIcon>
+                        <Icon color={location.pathname === path ? 'primary' : undefined} />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        primary={name}
+                        sx={{
+                          color: location.pathname === path ? 'primary.main' : 'white',
+                        }}
+                      />
+                    </ListItem>
+                  </Link>
+                );
+              })}
+            </List>
+          </Box>
+        </Drawer>
+      ) : (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            ['& .MuiDrawer-paper']: {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+        >
+          <Toolbar />
+          <Box sx={{ overflow: 'auto' }}>
+            <List>
+              <ListItem button={true} onClick={() => openUploadDialog()}>
+                <ListItemIcon>
+                  <UploadIcon />
+                </ListItemIcon>
+                <ListItemText primary="Upload" />
+              </ListItem>
+            </List>
+            <Divider />
+            <List>
+              {Object.values(routes).map(({ name, path }) => {
+                const Icon = icons[path];
+                return (
+                  <Link to={path} key={name}>
+                    <ListItem button={true}>
+                      <ListItemIcon>
+                        <Icon color={location.pathname === path ? 'primary' : undefined} />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        primary={name}
+                        sx={{
+                          color: location.pathname === path ? 'primary.main' : 'white',
+                        }}
+                      />
+                    </ListItem>
+                  </Link>
+                );
+              })}
             </List>
           </Box>
         </Drawer>
@@ -210,7 +209,7 @@ const Panel: React.FC<PanelProps> = ({ routes }) => {
             height: isMobile() ? 'calc(100vh - 56px)' : '100%',
           }}
         >
-          {route ? <route.Component /> : null}
+          <Grid />
         </Paper>
       </Box>
     </Box>

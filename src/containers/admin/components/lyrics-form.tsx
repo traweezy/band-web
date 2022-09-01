@@ -28,30 +28,31 @@ const LyricsForm: React.FC<LyricsFormProps> = ({ handleSubmitData }) => {
       handleSubmitData({});
     }
   }, [title, author, version, fileId]);
+
   return (
     <>
       <TextField
-        autoFocus
+        autoFocus={true}
         margin="dense"
         id="title"
         label="Title"
         type="text"
-        fullWidth
+        fullWidth={true}
         value={title}
         onChange={event => setTitle(event.target.value)}
         variant="standard"
-        required
+        required={true}
       />
       <TextField
         id="select-author"
         margin="dense"
-        select
+        select={true}
         label="Author"
         type="text"
         value={author}
         onChange={event => setAuthor(event.target.value)}
         variant="standard"
-        required
+        required={true}
       >
         <MenuItem value="Kyle">Kyle</MenuItem>
         <MenuItem value="Tyler">Tyler</MenuItem>
@@ -66,16 +67,17 @@ const LyricsForm: React.FC<LyricsFormProps> = ({ handleSubmitData }) => {
         value={version}
         onChange={event => setVersion(Number(event.target.value))}
         variant="standard"
-        required
+        required={true}
       />
       <div style={{ marginTop: '1em' }}>
-        <InputLabel required>File</InputLabel>
+        <InputLabel required={true}>File</InputLabel>
+
         <FilePond
           ref={pondEl}
           files={files}
           allowMultiple={false}
           maxFiles={1}
-          instantUpload
+          instantUpload={true}
           server={{
             process: {
               url: 'https://envoys-cms.herokuapp.com/upload',

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,36 +10,31 @@ import DialogContent from '@mui/material/DialogContent';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import DialogTitle from '@mui/material/DialogTitle';
-import { toast } from 'react-toastify';
-import { sentenceCase } from 'change-case';
-import AdminApi from '../../../services/admin-api';
-import type { SideNavigationRoutes, SideNavigationRoutePath } from '../index';
+import shallow from 'zustand/shallow';
 import LyricsForm from './lyrics-form';
 import TabsForm from './tabs-form';
+import ImageForm from './image-form';
+import EventForm from './event-form';
 import RecordingsForm from './recordings-form';
+import { useStore } from '../../../store/local';
+import {
+  useUploadRecording,
+  useUploadLyrics,
+  useUploadTab,
+  useUploadImage,
+  useUploadEvent,
+} from '../../../store/server';
 
-const AdminApiClient = AdminApi.getInstance();
-
-interface FormDialogProps {
-  routes: SideNavigationRoutes;
-}
-
-const FormDialog: React.FC<FormDialogProps> = ({ routes }) => {
+const FormDialog = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (location.search.includes('action=upload')) {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
-  }, [location]);
-
-  const handleClose = () => {
-    navigate(location.pathname);
-  };
+  const { routes, uploadDialogIsOpen, closeUploadDialog } = useStore(
+    state => ({
+      routes: state.routes,
+      uploadDialogIsOpen: state.uploadDialogIsOpen,
+      closeUploadDialog: state.closeUploadDialog,
+    }),
+    shallow,
+  );
 
   const [type, setType] = useState(() => {
     const defaultType = routes[location.pathname as SideNavigationRoutePath];
@@ -48,48 +44,48 @@ const FormDialog: React.FC<FormDialogProps> = ({ routes }) => {
   useEffect(() => {
     const defaultType = routes[location.pathname as SideNavigationRoutePath];
     setType(defaultType?.name ?? null);
-  }, [location.pathname]);
+  }, [location]);
 
-  const [submitData, setSubmitData] = useState<{
-    [key: string]: string | number;
-  }>({});
+  const [submitData, setSubmitData] = useState<Record<string, string | number>>({});
 
-  const sendData = async () => {
-    let apiCall: any;
+  const { mutate: uploadRecording, isLoading: recordingIsUploading } = useUploadRecording();
+  const { mutate: uploadLyrics, isLoading: lyricsIsUploading } = useUploadLyrics();
+  const { mutate: uploadTab, isLoading: tabIsUploading } = useUploadTab();
+  const { mutate: uploadImage, isLoading: imageIsUploading } = useUploadImage();
+  const { mutate: uploadEvent, isLoading: eventIsUploading } = useUploadEvent();
 
+  const sendData = () => {
     switch (type) {
       case 'Lyrics': {
-        apiCall = AdminApiClient.postLyrics;
+        uploadLyrics(submitData);
         break;
       }
       case 'Recordings': {
-        apiCall = AdminApiClient.postRecording;
+        uploadRecording(submitData);
         break;
       }
       case 'Tabs': {
-        apiCall = AdminApiClient.postTab;
+        uploadTab(submitData);
         break;
       }
-
-      default: {
-        apiCall = () => null;
+      case 'Images': {
+        uploadImage(submitData);
+        break;
+      }
+      case 'Events': {
+        uploadEvent(submitData);
+        break;
       }
     }
-    await toast.promise(
-      apiCall(submitData),
-      {
-        pending: `Uploading ${sentenceCase(type)}...`,
-        success: `Finished uploading ${sentenceCase(type)} 👌`,
-        error: 'Fuck something happened 🤯',
-      },
-      { autoClose: 3000 },
-    );
-    handleClose();
+
+    closeUploadDialog();
   };
 
   return (
-    <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>Upload {type}</DialogTitle>
+    <Dialog open={uploadDialogIsOpen} onClose={closeUploadDialog}>
+      <DialogTitle>
+        Upload {type.split('').reverse().join('').replace('s', '').split('').reverse().join('')}
+      </DialogTitle>
       <DialogContent
         sx={{
           minWidth: '500px',
@@ -100,19 +96,19 @@ const FormDialog: React.FC<FormDialogProps> = ({ routes }) => {
           sx={{
             '& .MuiTextField-root': { mt: 1, width: '100%' },
           }}
-          noValidate
+          noValidate={true}
           autoComplete="off"
         >
           <div>
             <TextField
               id="outlined-select-currency"
-              select
+              select={true}
               label="Select"
               value={type}
               onChange={event => setType(event.target.value)}
               variant="standard"
               margin="dense"
-              required
+              required={true}
             >
               {Object.values(routes).map(option => (
                 <MenuItem key={option.name} value={option.name}>
@@ -120,21 +116,24 @@ const FormDialog: React.FC<FormDialogProps> = ({ routes }) => {
                 </MenuItem>
               ))}
             </TextField>
-            {type === 'Lyrics' && (
-              <LyricsForm handleSubmitData={setSubmitData} />
-            )}
+            {type === 'Lyrics' && <LyricsForm handleSubmitData={setSubmitData} />}
             {type === 'Tabs' && <TabsForm handleSubmitData={setSubmitData} />}
-            {type === 'Recordings' && (
-              <RecordingsForm handleSubmitData={setSubmitData} />
-            )}
+            {type === 'Recordings' && <RecordingsForm handleSubmitData={setSubmitData} />}
+            {type === 'Images' && <ImageForm handleSubmitData={setSubmitData} />}
+            {type === 'Events' && <EventForm handleSubmitData={setSubmitData} />}
           </div>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={sendData} disabled={!Object.keys(submitData).length}>
+        <Button onClick={closeUploadDialog}>Cancel</Button>
+        <LoadingButton
+          onClick={sendData}
+          disabled={!Object.keys(submitData).length}
+          loading={recordingIsUploading || lyricsIsUploading || tabIsUploading || imageIsUploading || eventIsUploading}
+          loadingIndicator="Uploading..."
+        >
           Upload
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

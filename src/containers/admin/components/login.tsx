@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  FormEvent,
-  JSXElementConstructor,
-  useEffect,
-} from 'react';
+import React, { useState, FormEvent, JSXElementConstructor, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -30,10 +25,7 @@ const LoginDialog = styled(Dialog)`
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<
-      unknown,
-      string | JSXElementConstructor<unknown>
-    >;
+    children: React.ReactElement<unknown, string | JSXElementConstructor<unknown>>;
   },
   ref: React.Ref<unknown>,
 ) {
@@ -88,68 +80,54 @@ const Login: React.FC<LoginProps> = ({ show }) => {
   }, [loginState, email, password]);
 
   return (
-    <LoginDialog
-      open={show}
-      fullWidth
-      maxWidth="sm"
-      TransitionComponent={Transition}
-      keepMounted
-    >
+    <LoginDialog open={show} fullWidth={true} maxWidth="sm" TransitionComponent={Transition} keepMounted={true}>
       <DialogTitle sx={{ fontSize: 36 }}>Login</DialogTitle>
       <DialogContent>
         <Stack
           component="form"
-          noValidate
+          noValidate={true}
           onSubmit={(e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             handleSubmit();
           }}
         >
           <TextField
-            required
-            autoFocus
+            required={true}
+            autoFocus={true}
             margin="dense"
             id="email"
             label="Email Address"
             type="email"
-            fullWidth
+            fullWidth={true}
             variant="standard"
             value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             error={loginState === LoginState.ERROR}
             sx={{ marginBottom: 2 }}
           />
           <TextField
-            required
-            autoFocus
+            required={true}
+            autoFocus={true}
             margin="dense"
             id="password"
             label="Password"
             type="password"
-            fullWidth
+            fullWidth={true}
             variant="standard"
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
-            }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             error={loginState === LoginState.ERROR}
           />
           {loginState === LoginState.ERROR && (
             <Alert severity="error" sx={{ mt: 3 }}>
-              Invalid email or password. Please try again. If you have not yet
-              created an account, please contact your administrator.
+              Invalid email or password. Please try again. If you have not yet created an account, please contact your
+              administrator.
             </Alert>
           )}
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleSubmit()}
-        >
+        <Button variant="contained" color="primary" onClick={() => handleSubmit()}>
           Submit
         </Button>
       </DialogActions>

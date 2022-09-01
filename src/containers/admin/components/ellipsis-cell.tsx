@@ -5,6 +5,12 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { GridRenderCellParams } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface GridCellExpandProps {
   value: string;
@@ -12,15 +18,10 @@ interface GridCellExpandProps {
 }
 
 const isOverflown = (element: Element): boolean => {
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
+  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
-const GridCellExpand = React.memo(function GridCellExpand(
-  props: GridCellExpandProps,
-) {
+const GridCellExpand = React.memo(function GridCellExpand(props: GridCellExpandProps) {
   const { width, value } = props;
   const wrapper = React.useRef<HTMLDivElement | null>(null);
   const cellDiv = React.useRef(null);
@@ -91,18 +92,11 @@ const GridCellExpand = React.memo(function GridCellExpand(
           textOverflow: 'ellipsis',
         }}
       >
-        {value}
+        {dayjs(value).isValid() ? dayjs(value).format('YYYY-MM-DD hh:mm A') : value}
       </Box>
       {showPopper && (
-        <Popper
-          open={showFullCell && anchorEl !== null}
-          anchorEl={anchorEl}
-          style={{ width, marginLeft: -17 }}
-        >
-          <Paper
-            elevation={1}
-            style={{ minHeight: wrapper.current!.offsetHeight - 3 }}
-          >
+        <Popper open={showFullCell && anchorEl !== null} anchorEl={anchorEl}>
+          <Paper elevation={1} style={{ minHeight: wrapper.current!.offsetHeight - 3 }}>
             <Typography variant="body2" style={{ padding: 8 }}>
               {value}
             </Typography>
@@ -114,12 +108,7 @@ const GridCellExpand = React.memo(function GridCellExpand(
 });
 
 const EllipsisCell = (params: GridRenderCellParams<string>) => {
-  return (
-    <GridCellExpand
-      value={params.value || ''}
-      width={params.colDef.computedWidth}
-    />
-  );
+  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />;
 };
 
 export default EllipsisCell;

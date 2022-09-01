@@ -9,3 +9,4 @@ interface MobileDetector {
   isAndroid: () => boolean;
   isIos: () => boolean;
 }
+declare module '*.png';

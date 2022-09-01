@@ -4,9 +4,7 @@ const Website = () => (
   <div className="h-screen bg-black font-metal-mania">
     <div className="container px-4 py-16 mx-auto">
       <img src={BandLogo}></img>
-      <h1 className="mt-4 text-5xl font-bold text-center text-white">
-        Coming soon, to a dive bar near you
-      </h1>
+      <h1 className="mt-4 text-5xl font-bold text-center text-white">Coming soon, to a dive bar near you</h1>
     </div>
   </div>
 );

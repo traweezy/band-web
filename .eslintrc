@@ -3,14 +3,14 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:tailwind/recommended",
     "plugin:jest/recommended",
+    "prettier",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "jest", "tailwind", "prettier"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "jest", "prettier"],
   "env": {
     "browser": true,
-    "es6": true,
+    "es2021": true,
     "jest": true
   },
   "globals": {
@@ -37,6 +37,10 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "single"],
+    "max-len": [1, { "code": 120 }]
   }
 }

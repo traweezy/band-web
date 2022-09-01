@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.11.1]
+        node-version: [v8.18.0]
 
     steps:
       - uses: actions/checkout@v2
@@ -29,32 +29,12 @@ jobs:
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-
-  #   strategy:
-  #     matrix:
-  #       node-version: [16.11.1]
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #     - run: |
-  #         pnpm ci
-  #         pnpm test
-  #       env:
-  #         SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
-
   deploy:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.11.1]
+        node-version: [v8.18.0]
 
     needs: build
 
