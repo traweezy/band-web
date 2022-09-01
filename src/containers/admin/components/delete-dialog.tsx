@@ -77,7 +77,7 @@ const DeleteDialog = () => {
   return (
     <Dialog open={deleteDialogIsOpen} onClose={closeDeleteDialog}>
       <DialogTitle>
-        Delete {type?.split('')?.reverse()?.join('')?.replace('s', '')?.split('')?.reverse()?.join('')}
+        Delete {type ? type?.split('')?.reverse()?.join('')?.replace('s', '')?.split('')?.reverse()?.join('') : ''}
       </DialogTitle>
       <DialogContent
         sx={{

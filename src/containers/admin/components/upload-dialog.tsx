@@ -84,7 +84,7 @@ const FormDialog = () => {
   return (
     <Dialog open={uploadDialogIsOpen} onClose={closeUploadDialog}>
       <DialogTitle>
-        Upload {type?.split('')?.reverse()?.join('')?.replace('s', '')?.split('')?.reverse()?.join('')}
+        Upload {type ? type?.split('')?.reverse()?.join('')?.replace('s', '')?.split('')?.reverse()?.join('') : ''}
       </DialogTitle>
       <DialogContent
         sx={{
