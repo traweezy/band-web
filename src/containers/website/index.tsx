@@ -20,6 +20,7 @@ const settings: ParticleBackgroundConfig = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ContentContainer = ({ children }: any): JSX.Element => (
   <div className="w-full overflow-auto">
     <ParticleBackground className="absolute z-0" settings={settings} />
