@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
           pnpm build
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
@@ -51,7 +51,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
           pnpm build
         env:
           SKIP_PREFLIGHT_CHECK: ${{ secrets.SKIP_PREFLIGHT_CHECK }}
