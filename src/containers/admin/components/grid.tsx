@@ -86,8 +86,10 @@ const PanelGrid = () => {
       loading={loading}
       columns={
         isMobile()
-          ? columns?.filter((column: any) => column?.field === 'Title' || column?.field === 'Actions')
-          : columns?.map((column: any) => {
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            columns?.filter((column: any) => column?.field === 'Title' || column?.field === 'Actions')
+          : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            columns?.map((column: any) => {
               column.width = undefined;
               column.flex = 1;
               return column;

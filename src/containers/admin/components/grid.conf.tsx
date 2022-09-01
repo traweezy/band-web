@@ -9,7 +9,6 @@ import downloadFile from '../../../services/download-file';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { toast } from 'react-toastify';
-import ReactPlayer from 'react-player';
 import { useStore } from '../../../store/local';
 
 import EllipsisCell from './ellipsis-cell';

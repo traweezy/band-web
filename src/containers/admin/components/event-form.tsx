@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 
 interface EventFormProps {
   handleSubmitData: (data: { [key: string]: string | number }) => void;

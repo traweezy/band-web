@@ -31,6 +31,7 @@ import Grid from './grid';
 
 const drawerWidth = 200;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const icons: Record<keyof SideNavigationRoutes, any> = {
   '/admin/recordings': LibraryMusicIcon,
   '/admin/tabs': TextSnippetIcon,
