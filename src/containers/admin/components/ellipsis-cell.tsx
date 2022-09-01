@@ -92,7 +92,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props: GridCellExpandP
           textOverflow: 'ellipsis',
         }}
       >
-        {dayjs(value).isValid() ? dayjs(value).format('YYYY-MM-DD hh:mm A') : value}
+        {dayjs(value).isValid() && value?.toString()?.includes('-') ? dayjs(value).format('YYYY-MM-DD hh:mm A') : value}
       </Box>
       {showPopper && (
         <Popper open={showFullCell && anchorEl !== null} anchorEl={anchorEl}>
